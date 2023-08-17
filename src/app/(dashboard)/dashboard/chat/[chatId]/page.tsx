@@ -24,13 +24,9 @@ async function getChatMessages(chatId: string) {
 			-1
 		);
 
-		const dbMessages = results.map(
-			(message) => JSON.parse(message) as Message
-		);
+		const dbMessages = results.map((message) => JSON.parse(message) as Message);
 		const reversedDbMessages = dbMessages.reverse();
-		const messages = messageArraySchema.parse(
-			reversedDbMessages
-		) as Message[];
+		const messages = messageArraySchema.parse(reversedDbMessages) as Message[];
 		return messages;
 	} catch (error) {
 		notFound();
@@ -50,7 +46,11 @@ const page: FC<Props> = async ({ params }: Props) => {
 	if (userId1 !== user.id && userId2 !== user.id) notFound();
 
 	const chatPartnerId = userId1 === user.id ? userId2 : userId1;
-	const chatPartner = (await db.get(`user:${chatPartnerId}`)) as User;
+	const chatPartnerRaw = (await fetchRedis(
+		"get",
+		`user:${chatPartnerId}`
+	)) as string;
+	const chatPartner = JSON.parse(chatPartnerRaw) as User;
 	const initialMessages = await getChatMessages(chatId);
 
 	return (
@@ -74,9 +74,7 @@ const page: FC<Props> = async ({ params }: Props) => {
 								{chatPartner.name}
 							</span>
 						</div>
-						<span className="text-sm text-gray-600">
-							{chatPartner.email}
-						</span>
+						<span className="text-sm text-gray-600">{chatPartner.email}</span>
 					</div>
 				</div>
 			</div>
