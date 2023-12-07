@@ -12,7 +12,7 @@ export async function fetchRedis(
 		headers: {
 			Authorization: `Bearer ${authToken}`,
 		},
-		cache: "no-store",
+		// cache: "no-store",
 	});
 
 	if (!response.ok) {

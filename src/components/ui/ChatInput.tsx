@@ -34,6 +34,7 @@ const ChatInput: React.FC<Props> = ({ chatPartner, chatId }) => {
 			setIsLoading(false);
 		}
 	};
+
 	return (
 		<div className="border-t border-gray-200 px-4 pt-4 mb-2 sm:mb-0">
 			<div className="relative flex-1 overflow-hidden rounded-lg shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-indigo-600">
@@ -62,11 +63,7 @@ const ChatInput: React.FC<Props> = ({ chatPartner, chatId }) => {
 				</div>
 				<div className="absolute right-0 bottom-0 flex justify-between py-2 pl-3 pr-2">
 					<div className="flex-shrink-0">
-						<Button
-							isLoading={isLoading}
-							onClick={sendMessage}
-							type="submit"
-						>
+						<Button isLoading={isLoading} onClick={sendMessage} type="submit">
 							Post
 						</Button>
 					</div>
