@@ -18,7 +18,7 @@ export const buttonVariants = cva(
 		"focus:ring-offset-2",
 		"focus:ring-neutral-400",
 		"disabled:opacity-50",
-		"disables:pointer-events-none",
+		"disabled:pointer-events-none",
 	],
 	{
 		variants: {
@@ -49,7 +49,7 @@ export const buttonVariants = cva(
 
 export interface ButtonProps
 	extends ButtonHTMLAttributes<HTMLButtonElement>,
-		VariantProps<typeof buttonVariants> {
+	VariantProps<typeof buttonVariants> {
 	isLoading?: boolean;
 }
 

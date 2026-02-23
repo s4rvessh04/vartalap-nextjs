@@ -51,7 +51,7 @@ export async function POST(req: Request, res: Response) {
 			return new Response("User is already your friend", { status: 400 });
 		}
 
-		pusherServer.trigger(
+		await pusherServer.trigger(
 			toPusherKey(`user:${idToAdd}:incoming_friend_requests`),
 			"incoming_friend_requests",
 			{
