@@ -33,24 +33,39 @@ export const authOptions: NextAuthOptions = {
 	],
 	callbacks: {
 		async jwt({ token, user }) {
-			const dbUserResult = (await fetchRedis(
-				"get",
-				`user:${token.id}`
-			)) as string | null;
+			// On initial sign-in, user object is provided by the provider
+			// On subsequent calls (session validation), only token is available
+			if (user) {
+				token.id = user.id;
+			}
 
-			if (!dbUserResult) {
-				token.id = user!.id;
+			if (!token.id) {
 				return token;
 			}
 
-			const dbUser = JSON.parse(dbUserResult) as User;
+			try {
+				const dbUserResult = (await fetchRedis(
+					"get",
+					`user:${token.id}`
+				)) as string | null;
 
-			return {
-				id: dbUser.id,
-				name: dbUser.name,
-				email: dbUser.email,
-				picture: dbUser.image,
-			};
+				if (!dbUserResult) {
+					return token;
+				}
+
+				const dbUser = JSON.parse(dbUserResult) as User;
+
+				return {
+					id: dbUser.id,
+					name: dbUser.name,
+					email: dbUser.email,
+					picture: dbUser.image,
+				};
+			} catch (error) {
+				// If Redis fails, return the token as-is to prevent auth loop
+				console.error("Error fetching user from Redis:", error);
+				return token;
+			}
 		},
 
 		async session({ session, token }) {
@@ -64,11 +79,8 @@ export const authOptions: NextAuthOptions = {
 			return session;
 		},
 		redirect({ url, baseUrl }) {
-			// If the url is a relative path, prepend the baseUrl
 			if (url.startsWith("/")) return `${baseUrl}${url}`;
-			// If the url is on the same origin, allow it
 			if (new URL(url).origin === baseUrl) return url;
-			// Default: redirect to dashboard
 			return `${baseUrl}/dashboard`;
 		},
 	},
