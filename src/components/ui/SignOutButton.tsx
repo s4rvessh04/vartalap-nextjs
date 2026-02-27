@@ -7,7 +7,7 @@ import { signOut } from "next-auth/react";
 import { toast } from "react-hot-toast";
 import { Loader2, LogOut } from "lucide-react";
 
-interface SignOutButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {}
+interface SignOutButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> { }
 
 const SignOutButton: FC<SignOutButtonProps> = ({ ...props }) => {
 	const [isSigningOut, setIsSigningOut] = useState<boolean>(false);
@@ -29,7 +29,7 @@ const SignOutButton: FC<SignOutButtonProps> = ({ ...props }) => {
 			}}
 		>
 			{isSigningOut ? (
-				<Loader2 className="aniamte-spin h-4 w-4" />
+				<Loader2 className="animate-spin h-4 w-4" />
 			) : (
 				<LogOut className="h-4 w-4" />
 			)}
