@@ -45,7 +45,7 @@ function Messages({
 	return (
 		<div
 			id="messages"
-			className="flex h-full flex-1 flex-col-reverse gap-4 p-3 overflow-y-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrollbar-touch"
+			className="flex h-full flex-1 flex-col-reverse gap-3 p-4 overflow-y-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrollbar-touch bg-neutral-50/50"
 		>
 			<div ref={scrollDownRef} />
 			{messages.map((message, index) => {
@@ -55,7 +55,7 @@ function Messages({
 				return (
 					<div
 						key={`${message.id}-${message.timestamp}`}
-						className="chat-message"
+						className="chat-message animate-fade-in"
 					>
 						<div
 							className={cn(`flex items-end`, {
@@ -64,7 +64,7 @@ function Messages({
 						>
 							<div
 								className={cn(
-									"flex flex-col space-y-2 text-base max-w-xs mx-2",
+									"flex flex-col space-y-2 text-sm max-w-[70%] mx-2",
 									{
 										"order-1 items-end": isCurrentUser,
 										"order-2 items-start": !isCurrentUser,
@@ -73,29 +73,32 @@ function Messages({
 							>
 								<span
 									className={cn(
-										"px-4 py-2 rounded-lg inline-block",
+										"px-4 py-2.5 inline-block shadow-sm",
 										{
-											"bg-indigo-600 text-white":
-												isCurrentUser,
-											"bg-gray-200 text-gray-900":
-												!isCurrentUser,
-											"rounded-br-none":
-												!hasNextMessageFromSameUser &&
-												isCurrentUser,
-											"rounded-bl-none":
-												!hasNextMessageFromSameUser &&
-												!isCurrentUser,
+											"bg-neutral-900 text-white rounded-2xl rounded-br-md":
+												isCurrentUser && !hasNextMessageFromSameUser,
+											"bg-neutral-900 text-white rounded-2xl":
+												isCurrentUser && hasNextMessageFromSameUser,
+											"bg-white text-neutral-900 rounded-2xl rounded-bl-md border border-neutral-200/80":
+												!isCurrentUser && !hasNextMessageFromSameUser,
+											"bg-white text-neutral-900 rounded-2xl border border-neutral-200/80":
+												!isCurrentUser && hasNextMessageFromSameUser,
 										}
 									)}
 								>
 									{message.text}{" "}
-									<span className="ml-2 text-xs text-gray-400">
+									<span
+										className={cn("ml-2 text-[10px]", {
+											"text-neutral-400": isCurrentUser,
+											"text-neutral-300": !isCurrentUser,
+										})}
+									>
 										{formatTimestamp(message.timestamp)}
 									</span>
 								</span>
 							</div>
 							<div
-								className={cn("relative w-6 h-6", {
+								className={cn("relative w-7 h-7", {
 									"order-2": isCurrentUser,
 									"order-1": !isCurrentUser,
 									invisible: hasNextMessageFromSameUser,
@@ -110,7 +113,7 @@ function Messages({
 									}
 									alt="Profile picture"
 									referrerPolicy="no-referrer"
-									className="rounded-full"
+									className="rounded-full object-cover"
 								/>
 							</div>
 						</div>

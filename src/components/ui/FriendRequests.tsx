@@ -66,31 +66,45 @@ const FriendRequests: FC<Props> = ({ incomingFriendRequests, sessionId }) => {
 	return (
 		<>
 			{friendRequests.length === 0 ? (
-				<p className="text-sm text-zinc-500">No requests!</p>
+				<div className="flex flex-col items-center justify-center py-12 text-center">
+					<div className="w-14 h-14 rounded-2xl bg-neutral-100 flex items-center justify-center mb-3">
+						<UserPlus className="h-7 w-7 text-neutral-300" />
+					</div>
+					<p className="text-sm text-neutral-400 font-medium">
+						No pending requests
+					</p>
+					<p className="text-xs text-neutral-300 mt-1">
+						When someone sends you a request, it will show up here
+					</p>
+				</div>
 			) : (
 				friendRequests.map((request) => (
 					<div
 						key={request.senderId}
-						className="flex gap-4 items-center"
+						className="flex items-center gap-4 p-3 rounded-xl bg-neutral-50 animate-fade-in"
 					>
-						<UserPlus className="text-black" />
-						<p className="font-medium text-lg">
+						<div className="w-10 h-10 rounded-full bg-neutral-200 flex items-center justify-center flex-shrink-0">
+							<UserPlus className="h-5 w-5 text-neutral-500" />
+						</div>
+						<p className="font-medium text-sm text-neutral-900 flex-1 truncate">
 							{request.senderEmail}
 						</p>
-						<button
-							onClick={() => acceptFriend(request.senderId)}
-							aria-label="accept friend"
-							className="w-8 h-8 bg-indigo-600 hover:bg-indigo-700 grid place-items-center rounded-full transition hover:shadow-md"
-						>
-							<Check className="font-semibold text-white w-3/4 h-3/4" />
-						</button>
-						<button
-							onClick={() => denyFriend(request.senderId)}
-							aria-label="deny friend"
-							className="w-8 h-8 bg-red-600 hover:bg-red-700 grid place-items-center rounded-full transition hover:shadow-md"
-						>
-							<X className="font-semibold text-white w-3/4 h-3/4" />
-						</button>
+						<div className="flex gap-2 flex-shrink-0">
+							<button
+								onClick={() => acceptFriend(request.senderId)}
+								aria-label="accept friend"
+								className="w-9 h-9 bg-neutral-900 hover:bg-neutral-700 grid place-items-center rounded-xl transition-all duration-200 hover:shadow-md"
+							>
+								<Check className="text-white w-4 h-4" />
+							</button>
+							<button
+								onClick={() => denyFriend(request.senderId)}
+								aria-label="deny friend"
+								className="w-9 h-9 bg-neutral-200 hover:bg-neutral-300 grid place-items-center rounded-xl transition-all duration-200"
+							>
+								<X className="text-neutral-600 w-4 h-4" />
+							</button>
+						</div>
 					</div>
 				))
 			)}

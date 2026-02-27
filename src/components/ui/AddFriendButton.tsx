@@ -46,26 +46,28 @@ const AddFriendButton = () => {
 	};
 
 	return (
-		<form onSubmit={handleSubmit(onSubmit)} className="max-w-sm">
+		<form onSubmit={handleSubmit(onSubmit)} className="max-w-md">
 			<label
 				htmlFor="email"
-				className="block text-sm font-medium leading-6 text-gray-950"
+				className="block text-sm font-medium leading-6 text-neutral-900"
 			>
 				Add friend by email
 			</label>
-			<div className="mt-2 flex gap-4">
+			<div className="mt-3 flex gap-3">
 				<input
 					{...register("email")}
 					type="text"
-					className="block w-full rounded-md border-0 py-1.5 text-gray-950 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-inset focus:ring-indigo-600s sm:text-sm leading-6"
+					className="block w-full rounded-xl border-0 py-2.5 px-4 text-neutral-900 bg-neutral-50 shadow-sm ring-1 ring-inset ring-neutral-200 placeholder:text-neutral-400 focus:ring-2 focus:ring-inset focus:ring-neutral-900 focus:bg-white sm:text-sm leading-6 transition-all duration-200"
 					placeholder="you@example.com"
 				/>
-				<Button>Add</Button>
+				<Button className="rounded-xl px-6">Add</Button>
 			</div>
-			<p className="mt-1 text-sm text-red-600">{errors.email?.message}</p>
+			{errors.email?.message && (
+				<p className="mt-2 text-sm text-red-500 font-medium">{errors.email.message}</p>
+			)}
 			{showSuccessState && (
-				<p className="mt-1 text-sm text-green-600">
-					Friend added successfully!
+				<p className="mt-2 text-sm text-neutral-600 font-medium">
+					✓ Friend request sent!
 				</p>
 			)}
 		</form>

@@ -6,6 +6,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { FC, useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import UnseenChatToast from "../UnseenChatToast";
+import Image from "next/image";
 
 type Props = {
 	friends: User[];
@@ -71,12 +72,18 @@ const SidebarChatList: FC<Props> = ({ friends, sessionId }) => {
 			});
 		}
 	}, [pathname]);
+
+	const isActive = (friendId: string) => {
+		return pathname?.includes(chatHrefContructor(sessionId, friendId));
+	};
+
 	return (
 		<ul role="list" className="max-h-[25rem] overflow-y-auto -mx-2 space-y-1">
 			{activeChats.sort().map((friend) => {
 				const unseenMessageCount = unseenMessages.filter(
 					(message) => message.senderId === friend.id
 				).length;
+				const active = isActive(friend.id);
 
 				return (
 					<li key={friend.id}>
@@ -85,11 +92,26 @@ const SidebarChatList: FC<Props> = ({ friends, sessionId }) => {
 								sessionId,
 								friend.id
 							)}`}
-							className="text-gray-700 hover:text-indigo-600 hover:bg-gray-50 group flex items-center gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold"
+							className={`group flex items-center gap-x-3 rounded-xl p-2.5 text-sm leading-6 font-medium transition-all duration-200 ${active
+									? "bg-neutral-900 text-white"
+									: "text-neutral-600 hover:text-neutral-900 hover:bg-neutral-100"
+								}`}
 						>
-							{friend.name}
+							<div className="relative h-8 w-8 rounded-full overflow-hidden flex-shrink-0">
+								<Image
+									fill
+									referrerPolicy="no-referrer"
+									className="rounded-full object-cover"
+									src={friend.image}
+									alt={`${friend.name}`}
+								/>
+							</div>
+							<span className="truncate flex-1">{friend.name}</span>
 							{unseenMessageCount > 0 && (
-								<div className="bg-indigo-600 font-medium text-xs text-white w-4 h-4 rounded-full flex justify-center items-center">
+								<div className={`font-medium text-xs w-5 h-5 rounded-full flex justify-center items-center flex-shrink-0 ${active
+										? "bg-white text-neutral-900"
+										: "bg-neutral-900 text-white"
+									}`}>
 									{unseenMessageCount}
 								</div>
 							)}

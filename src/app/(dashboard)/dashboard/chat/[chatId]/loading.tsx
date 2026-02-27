@@ -1,9 +1,9 @@
 import { FC } from "react";
 import Skeleton from "react-loading-skeleton";
 
-interface loadingProps {}
+interface loadingProps { }
 
-const loading: FC<loadingProps> = ({}) => {
+const loading: FC<loadingProps> = ({ }) => {
 	return (
 		<div className="flex flex-col h-full items-center">
 			<Skeleton className="mb-4" height={40} width={400} />
@@ -22,7 +22,7 @@ const loading: FC<loadingProps> = ({}) => {
 													borderRadius={999}
 												/>
 											</div>
-											<div className="relative mr-3 text-sm bg-indigo-100 text-black py-2 px-4 border border-gray-100 rounded-xl">
+											<div className="relative mr-3 text-sm bg-neutral-100 text-black py-2 px-4 border border-gray-100 rounded-xl">
 												<Skeleton
 													className="ml-2"
 													width={150}
@@ -40,7 +40,7 @@ const loading: FC<loadingProps> = ({}) => {
 													borderRadius={999}
 												/>
 											</div>
-											<div className="relative mr-3 text-sm bg-indigo-100 text-black py-2 px-4 border border-gray-100 rounded-xl">
+											<div className="relative mr-3 text-sm bg-neutral-100 text-black py-2 px-4 border border-gray-100 rounded-xl">
 												<Skeleton
 													className="ml-2"
 													width={150}
@@ -76,7 +76,7 @@ const loading: FC<loadingProps> = ({}) => {
 													borderRadius={999}
 												/>
 											</div>
-											<div className="relative mr-3 text-sm bg-indigo-100 text-black py-2 px-4 border border-gray-100 rounded-xl">
+											<div className="relative mr-3 text-sm bg-neutral-100 text-black py-2 px-4 border border-gray-100 rounded-xl">
 												<Skeleton
 													className="ml-2"
 													width={150}

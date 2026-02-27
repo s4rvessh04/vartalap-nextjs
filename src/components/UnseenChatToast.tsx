@@ -44,19 +44,19 @@ const UnseenChatToast = (props: Props) => {
 						</div>
 					</div>
 					<div className="ml-3 flex-1">
-						<p className="text-sm font-medium text-gray-900">
+						<p className="text-sm font-medium text-neutral-900">
 							{props.senderName}
 						</p>
-						<p className="mt-1 text-sm text-gray-500">
+						<p className="mt-1 text-sm text-neutral-500">
 							{props.senderMessage}
 						</p>
 					</div>
 				</div>
 			</a>
-			<div className="flex border-l border-gray-200">
+			<div className="flex border-l border-neutral-200">
 				<button
 					onClick={() => toast.dismiss(props.t.id)}
-					className="w-full border border-transparent rounded-r-lg p-4 flex items-center justify-center text-indigo-600 hover:text-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+					className="w-full border border-transparent rounded-r-lg p-4 flex items-center justify-center text-neutral-600 hover:text-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-500 transition-colors"
 				>
 					Close
 				</button>
