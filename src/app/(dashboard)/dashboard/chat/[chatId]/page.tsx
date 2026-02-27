@@ -54,27 +54,28 @@ const page: FC<Props> = async ({ params }: Props) => {
 	const initialMessages = await getChatMessages(chatId);
 
 	return (
-		<div className="flex-1 justify-between flex flex-col h-full max-h-[calc(100vh - 6rem)]">
-			<div className="flex sm:items-center justify-between py-3 border-b-2 border-gray-200">
+		<div className="flex-1 justify-between flex flex-col h-full max-h-[calc(100vh-6rem)]">
+			<div className="flex sm:items-center justify-between py-4 px-4 sm:px-6 border-b border-neutral-200/80 bg-white rounded-t-2xl">
 				<div className="relative flex items-center space-x-4">
 					<div className="relative">
-						<div className="relative w-8 sm:w-12 h-8 sm:h-12">
+						<div className="relative w-10 sm:w-12 h-10 sm:h-12 rounded-full overflow-hidden ring-2 ring-neutral-100">
 							<Image
 								fill
 								referrerPolicy="no-referrer"
 								src={chatPartner.image}
 								alt={`${chatPartner.name} profile picture`}
-								className="rounded-full"
+								className="rounded-full object-cover"
 							/>
 						</div>
+						<span className="absolute bottom-0 right-0 w-3 h-3 bg-emerald-500 border-2 border-white rounded-full" />
 					</div>
 					<div className="flex flex-col leading-tight">
-						<div className="text-xl flex items-center">
-							<span className="text-gray-700 mr-3 font-semibold">
+						<div className="text-base sm:text-lg flex items-center">
+							<span className="text-neutral-900 font-semibold">
 								{chatPartner.name}
 							</span>
 						</div>
-						<span className="text-sm text-gray-600">{chatPartner.email}</span>
+						<span className="text-xs text-neutral-400">{chatPartner.email}</span>
 					</div>
 				</div>
 			</div>

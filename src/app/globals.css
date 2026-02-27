@@ -3,28 +3,70 @@
 @tailwind utilities;
 
 @layer base {
+	html {
+		scroll-behavior: smooth;
+	}
+
+	body {
+		@apply bg-neutral-50 text-neutral-900 antialiased;
+	}
+
+	::selection {
+		@apply bg-neutral-900 text-white;
+	}
+
 	container {
 		@apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
 	}
 }
 
+/* Scrollbar styling */
 .scrollbar-w-2::-webkit-scrollbar {
 	width: 0.25rem;
 	height: 0.25rem;
 }
 
 .scrollbar-track-blue-lighter::-webkit-scrollbar-track {
-	--bg-opacity: 1;
-	background-color: #f7fafc;
-	background-color: rgba(247, 350, 252, var(--bg-opacity));
+	background-color: transparent;
 }
 
 .scrollbar-thumb-blue::-webkit-scrollbar-thumb {
-	--bg-opacity: 1;
-	background-color: #edf2f7;
-	background-color: rgba(237, 242, 247, var(--bg-opacity));
+	background-color: #d4d4d4;
 }
 
 .scrollbar-thumb-rounded::-webkit-scrollbar-thumb {
-	border-radius: 0.25rem;
+	border-radius: 9999px;
+}
+
+/* Subtle animations */
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+		transform: translateY(8px);
+	}
+
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+@keyframes slideUp {
+	from {
+		opacity: 0;
+		transform: translateY(16px);
+	}
+
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+.animate-fade-in {
+	animation: fadeIn 0.3s ease-out forwards;
+}
+
+.animate-slide-up {
+	animation: slideUp 0.4s ease-out forwards;
 }
